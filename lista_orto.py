@@ -1,5 +1,6 @@
 from nodo1 import Nodo1
 import os
+import time
 class ListaOrtogonal():
     def __init__ (self):
         self.inicio = None
@@ -118,6 +119,7 @@ class ListaOrtogonal():
         file.write("}")
         file.close()
         os.system("dot -Tpng Reporte.dot -o Grafo.png")
+        print("La grafica se Genero exitosamente")
 
     def Suma(self,patron):
         p = self.inicio
@@ -144,6 +146,8 @@ class ListaOrtogonal():
         x = 0
         y = 1
         bien = []
+        print("Sumando truplas...")
+        time.sleep(1)
         for i in range(0,len(datos)):
             x = x + 1
             dic = {"x": x, "y":y, "num":datos[i]}
@@ -169,6 +173,8 @@ class ListaOrtogonal():
         rep = []
         pos = []
         l = True
+        print("Calculando matriz binaria...")
+        time.sleep(1)
         while p.abajo != None:
             for o in rep:
                 if o == i:

@@ -54,12 +54,12 @@ def CargarArchivo():
                     else:
                         error = True
                 if error:
-                    print("Error, la matriz "+nombre+" excede el limite de filas o columnas ")
+                    print("***Error, la matriz "+nombre+" excede el limite de filas o columnas ")
                 Mati = ordenarDatos(Temp,n,m)
                 ListaO = ListaOrtogonal()
                 ListaO.CrearMatriz(n,m,Mati)
                 Lista.Agregar(ListaO,nombre)
-    Lista.Recorrer()
+    print("El archivo ha sido leido correctamente")
                         
 
 def ProcesarArchivos():
@@ -68,8 +68,7 @@ def ProcesarArchivos():
 
 def EscribirArchivo():
     print("OPCIÓN ESCRIBIR ARCHIVOS DE SALIDA")
-    ruta = input("Ingrese una ruta especifica:")
-    Lista.Salida(ruta)
+    Lista.Salida()
 
 def MostrarDatos():
     print("OPCIÓN MOSTRAR DATOS DEL ESTUDIANTE")
@@ -79,23 +78,9 @@ def MostrarDatos():
     print("Ingenieria en Ciencias y Sistemas")
     print("5to Semestre")
 
-def CrearNodo(Id,Name,Shape,Color):
-    return Id + "[label=\"" + Name + "\" shape="+ Shape +", style=filled, fillcolor = " + Color +"]\n"
-
-def UnirNodo(A,B):
-    return A + "->" + B +"\n"
-    
-
 def GenerarGrafica():
     print("OPCIÓN GENERAR GRÁFICA")
     Lista.ElegirNombre()
-    """file = open("Grafica.dot","w")
-    file.write("digraph Proyecto1{\n")
-    file.write(CrearNodo("Carnet","201902209","circle","\"#B3BE30\""))
-    file.write("}")
-    file.close()
-    os.system("dot -Tpng Grafica.dot -o Grafica.png")"""
-
 def menu():
     print("MENÚ PRINCIPAL:")
     print("1 - Cargar archivo")

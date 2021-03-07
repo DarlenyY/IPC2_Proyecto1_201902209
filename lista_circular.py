@@ -1,6 +1,7 @@
 from nodo import Nodo
 from lista_orto import ListaOrtogonal
 import xml.etree.cElementTree as ET
+import time
 
 class ListaCircular():
     def __init__ (self):
@@ -49,7 +50,10 @@ class ListaCircular():
     def Sett (self,dato,aux):
         aux = aux
         aux.setReducida(dato)
-
+        print("Calculando matriz reducida ...")
+        time.sleep(1)
+        print("Se termino de procesar la matriz: "+str(aux.nombre)+"...")
+        time.sleep(1)
     def gett (self):
         aux = self.primero
         if aux != None :
@@ -75,9 +79,9 @@ class ListaCircular():
             m = procesar[2]
             Datos = self.Ordenar(procesar[0],procesar[1],m)
             self.Sett(Datos,aux)  
+            print("***Proceso finalizado***")
         else:
             print("***No se ha cargado ningun archivo de entrada")
-        self.gett()
 
     def ElegirNombre(self):
         nombres = []
@@ -92,31 +96,33 @@ class ListaCircular():
             for i in range(1,len(nombres)+1):
                 print(str(i)+"-"+nombres[i-1])
             elegido = int(input("Elija una opción: "))
+            var = True
             for i in range(1,len(nombres)+1):
                 if elegido == i:
                     busq = nombres[i-1]
+                    var = False
             if(auxi != None):           
                 while auxi.siguiente != self.primero:
                     if busq == auxi.nombre:
                         nn = auxi.dato.NoFilas()
                         mm = auxi.dato.NoColumnas()
                         auxi.dato.Grafo(busq,mm,nn)
-                        auxi.dato.MostrarMat()
                     auxi = auxi.siguiente
                     if busq == auxi.nombre and auxi.siguiente ==self.primero:
-                        auxi.dato.MostrarMat()
                         nn = auxi.dato.NoFilas()
                         mm = auxi.dato.NoColumnas()
                         auxi.dato.Grafo(busq,mm,nn)
-                        
-                        
+            if var:
+                print("Opcion no valida")         
         else:
             print("***No se a cargado ningun archivo de entrada")
+
  
-    def Salida(self,ruta):
+    def Salida(self):
         aux = self.primero
         if aux != None:
             if aux.getReducida() != None :
+                ruta = str(input("Ingrese una ruta especifica:"))
                 root = ET.Element("matrices")
                 while aux.siguiente != self.primero:
                     print(aux.nombre)
@@ -126,9 +132,9 @@ class ListaCircular():
                     patron = dat[1]
                     m = dat[2]
                     g = len(patron)
-                    matriz = ET.SubElement(root, "matriz", nombre=aux.nombre, n=str(g), m=str(m), g=str(g))
+                    matriz = ET.SubElement(root, "matriz", g=str(g), m=str(m), n=str(g), nombre=aux.nombre)
                     for i in num:
-                        dato = ET.SubElement(matriz, "dato", x=str(i.get("x")), y=str(i.get("y")))
+                        dato = ET.SubElement(matriz, "dato",  y=str(i.get("y")), x=str(i.get("x")))
                         dato.text = str(i.get("num"))
                     j = 0
                     for i in patron:
@@ -140,7 +146,6 @@ class ListaCircular():
                 print(aux.nombre) 
                 dat = aux.getReducida()
                 print(dat)
-
                 num = dat[0]
                 patron = dat[1]
                 m = dat[2]
