@@ -159,8 +159,19 @@ class ListaCircular():
                     frecu.text = str(f)
 
                 arbol = ET.ElementTree(root)
-                arbol.write(ruta+"/ArchivoDeSalida.xml")
-                print("***EL ARCHIVO SE GENERARo exitosamente***")  
+                try:
+                    arbol.write(ruta+"/ArchivoDeSalida.xml")
+                    print("***EL ARCHIVO SE GENERARo exitosamente***")  
+                except:
+                    print("***La rura ingresada no es valida***")
+                    while True:
+                        ruta = str(input("Ingrese una ruta especifica:"))
+                        try:
+                            arbol.write(ruta+"/ArchivoDeSalida.xml")
+                            print("***EL ARCHIVO SE GENERARo exitosamente***")
+                            break 
+                        except:
+                            print("***La rura ingresada no es valida***")
             else:
                 print("***El archivo no ha sido procesado")  
         else:

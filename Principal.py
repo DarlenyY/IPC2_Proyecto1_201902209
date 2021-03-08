@@ -8,8 +8,6 @@ import time
 Matrices = []
 Lista = ListaCircular()
 
-
-
 def ordenarDatos(dato,n,m):
     Datos = []
     for i in range(1,n+1):
@@ -24,53 +22,61 @@ def CargarArchivo():
     global Matrices, Matriz
     print("OPCIÓN CARGAR ARCHIVOS")
     print("----------------------")
-    ruta = str(input("Ingrese la ruta del archivo: "))
-    print(" ")
-    tree = ET.parse(ruta)
-    root = tree.getroot()
-    i = 0
-    nombres = []
-    for elem in root:
-        Matriz = []
-        error = False
-        nueva = True
-        if elem.tag == "matriz":
-            n = int(elem.attrib.get('n'))
-            m = int(elem.attrib.get('m'))
-            nombre = str(elem.attrib.get('nombre'))
-            for nom in range(0,len(nombres)):
-                if nombres[nom] == nombre:
-                    print("error, la matriz "+nombre+" ya existe")
-                    time.sleep(1)
-                    nueva = False
-                    i = i + 1
-            if nueva == True:
-                nombres.append(nombre)
-                i = i + 1
-                Temp = []
-                for node in root.findall('matriz['+str(i)+']/dato'):
-                    x = int(node.attrib.get('x'))
-                    y = int(node.attrib.get('y'))
-                    num = int(node.text)
-                    if x <= n and y <= m: 
-                        dato = {"x":x, "y":y, "num":num}
-                        Temp.append(dato)
-                    else:
-                        error = True
-                if error:
-                    print("error, la matriz "+nombre+" excede el limite de filas o columnas ")
-                    time.sleep(1)
-                Mati = ordenarDatos(Temp,n,m)
-                ListaO = ListaOrtogonal()
-                ListaO.CrearMatriz(n,m,Mati)
-                Lista.Agregar(ListaO,nombre)
-    print("***SE TERMINO DE LEER EL ARCHIVO***")
+    while True:
+        ruta = str(input("Ingrese la ruta del archivo: "))
+        try:
+            tree = ET.parse(ruta)
+            root = tree.getroot()
+            i = 0
+            nombres = []
+            for elem in root:
+                Matriz = []
+                error = False
+                nueva = True
+                if elem.tag == "matriz":
+                    n = int(elem.attrib.get('n'))
+                    m = int(elem.attrib.get('m'))
+                    nombre = str(elem.attrib.get('nombre'))
+                    for nom in range(0,len(nombres)):
+                        if nombres[nom] == nombre:
+                            print("error, la matriz "+nombre+" ya existe")
+                            time.sleep(1)
+                            nueva = False
+                            i = i + 1
+                    if nueva == True:
+                        nombres.append(nombre)
+                        i = i + 1
+                        Temp = []
+                        for node in root.findall('matriz['+str(i)+']/dato'):
+                            x = int(node.attrib.get('x'))
+                            y = int(node.attrib.get('y'))
+                            num = int(node.text)
+                            if x <= n and y <= m: 
+                                dato = {"x":x, "y":y, "num":num}
+                                Temp.append(dato)
+                            else:
+                                error = True
+                        if error:
+                            print("error, la matriz "+nombre+" excede el limite de filas o columnas ")
+                            time.sleep(1)
+                        Mati = ordenarDatos(Temp,n,m)
+                        ListaO = ListaOrtogonal()
+                        ListaO.CrearMatriz(n,m,Mati)
+                        Lista.Agregar(ListaO,nombre)
+            print("***SE TERMINO DE LEER EL ARCHIVO***")
+            break
+        except:
+            print("***La ruta no es valida***")
+            print(" ")
                         
 
 def ProcesarArchivos():
     print("OPCIÓN PROCESAR ARCHIVOS")
     print("------------------------")
-    Lista.Procesar()
+    try:
+        Lista.Procesar()
+    except:
+        print("Ocurrio un error")
 
 def EscribirArchivo():
     print("OPCIÓN ESCRIBIR ARCHIVOS DE SALIDA")
@@ -89,7 +95,11 @@ def MostrarDatos():
 def GenerarGrafica():
     print("OPCIÓN GENERAR GRÁFICA")
     print("----------------------")
-    Lista.ElegirNombre()
+    try:
+        Lista.ElegirNombre()
+    except:
+        print("Ocurrio un error")
+
 def menu():
     print("MENÚ PRINCIPAL:")
     print("--------------------------------")
