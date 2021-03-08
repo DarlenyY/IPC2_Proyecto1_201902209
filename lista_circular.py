@@ -54,6 +54,7 @@ class ListaCircular():
         time.sleep(1)
         print("Se termino de procesar la matriz: "+str(aux.nombre)+"...")
         time.sleep(1)
+
     def gett (self):
         aux = self.primero
         if aux != None :
@@ -79,7 +80,7 @@ class ListaCircular():
             m = procesar[2]
             Datos = self.Ordenar(procesar[0],procesar[1],m)
             self.Sett(Datos,aux)  
-            print("***Proceso finalizado***")
+            print("***PROCESO FINALIZADO***")
         else:
             print("***No se ha cargado ningun archivo de entrada")
 
@@ -113,7 +114,7 @@ class ListaCircular():
                         mm = auxi.dato.NoColumnas()
                         auxi.dato.Grafo(busq,mm,nn)
             if var:
-                print("Opcion no valida")         
+                print("Opcion no valida")     
         else:
             print("***No se a cargado ningun archivo de entrada")
 
@@ -125,9 +126,7 @@ class ListaCircular():
                 ruta = str(input("Ingrese una ruta especifica:"))
                 root = ET.Element("matrices")
                 while aux.siguiente != self.primero:
-                    print(aux.nombre)
                     dat = aux.getReducida()
-                    print(dat)
                     num = dat[0]
                     patron = dat[1]
                     m = dat[2]
@@ -143,9 +142,7 @@ class ListaCircular():
                         frecu = ET.SubElement(matriz, "frecuencia", g=str(j))
                         frecu.text = str(f)
                     aux = aux.siguiente
-                print(aux.nombre) 
                 dat = aux.getReducida()
-                print(dat)
                 num = dat[0]
                 patron = dat[1]
                 m = dat[2]
@@ -163,6 +160,7 @@ class ListaCircular():
 
                 arbol = ET.ElementTree(root)
                 arbol.write(ruta+"/ArchivoDeSalida.xml")
+                print("***EL ARCHIVO SE GENERARo exitosamente***")  
             else:
                 print("***El archivo no ha sido procesado")  
         else:

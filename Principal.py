@@ -3,6 +3,7 @@ from xml.dom import minidom
 import xml.etree.ElementTree as ET
 from lista_circular import ListaCircular
 from lista_orto import ListaOrtogonal
+import time
 
 Matrices = []
 Lista = ListaCircular()
@@ -22,7 +23,9 @@ def ordenarDatos(dato,n,m):
 def CargarArchivo():
     global Matrices, Matriz
     print("OPCIÓN CARGAR ARCHIVOS")
+    print("----------------------")
     ruta = str(input("Ingrese la ruta del archivo: "))
+    print(" ")
     tree = ET.parse(ruta)
     root = tree.getroot()
     i = 0
@@ -38,6 +41,7 @@ def CargarArchivo():
             for nom in range(0,len(nombres)):
                 if nombres[nom] == nombre:
                     print("error, la matriz "+nombre+" ya existe")
+                    time.sleep(1)
                     nueva = False
                     i = i + 1
             if nueva == True:
@@ -54,24 +58,28 @@ def CargarArchivo():
                     else:
                         error = True
                 if error:
-                    print("***Error, la matriz "+nombre+" excede el limite de filas o columnas ")
+                    print("error, la matriz "+nombre+" excede el limite de filas o columnas ")
+                    time.sleep(1)
                 Mati = ordenarDatos(Temp,n,m)
                 ListaO = ListaOrtogonal()
                 ListaO.CrearMatriz(n,m,Mati)
                 Lista.Agregar(ListaO,nombre)
-    print("El archivo ha sido leido correctamente")
+    print("***SE TERMINO DE LEER EL ARCHIVO***")
                         
 
 def ProcesarArchivos():
     print("OPCIÓN PROCESAR ARCHIVOS")
+    print("------------------------")
     Lista.Procesar()
 
 def EscribirArchivo():
     print("OPCIÓN ESCRIBIR ARCHIVOS DE SALIDA")
+    print("----------------------------------")
     Lista.Salida()
 
 def MostrarDatos():
     print("OPCIÓN MOSTRAR DATOS DEL ESTUDIANTE")
+    print("-----------------------------------")
     print("Katheryn Darleny Yuman Oscal")
     print("201902209")
     print("Introducción a la Programacion y Computación 2 sección \"B\"")
@@ -80,9 +88,11 @@ def MostrarDatos():
 
 def GenerarGrafica():
     print("OPCIÓN GENERAR GRÁFICA")
+    print("----------------------")
     Lista.ElegirNombre()
 def menu():
     print("MENÚ PRINCIPAL:")
+    print("--------------------------------")
     print("1 - Cargar archivo")
     print("2 - Procesar archivos")
     print("3 - Escribir archivo de salida")
@@ -109,7 +119,10 @@ while True:
         break
     else:
         print("Opcion no valida")
-    input("")
+    print(" ")
+    input("Presione enter")
+    os.system("cls")
+
 
     
 

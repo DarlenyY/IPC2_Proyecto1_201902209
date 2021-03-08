@@ -58,10 +58,10 @@ class ListaOrtogonal():
                 print("")
                 
     def CrearNodo(self,Id,Name,Shape,Color):
-        return Id + "[label=\"" + Name + "\" shape="+ Shape +", style=filled, fillcolor = " + Color +"]\n"
+        return Id + "[label=\"" + Name + "\" shape="+ Shape +", style=filled, fillcolor = " + Color +",penwidth = 0]\n"
 
-    def UnirNodo(self,A,B):
-        return A + "->" + B +"\n"
+    def UnirNodo(self,A,B,color):
+        return A + "->" + B  +"[color="+color+"]\n"
 
     def NoFilas(self):
         pp = self.inicio
@@ -91,26 +91,26 @@ class ListaOrtogonal():
         nn = nn
         file = open("Reporte.dot","w")
         file.write("digraph Tarea1{\n")
-        file.write(self.CrearNodo("M","Matrices","circle","\"#B3BE30\""))
-        file.write(self.CrearNodo("titulo",str(t),"circle","\"#B3BE30\""))
-        file.write(self.CrearNodo("n","n="+str(nn),"circle","\"#B3BE30\""))
-        file.write(self.CrearNodo("m","m="+str(mm),"circle","\"#B3BE30\""))
-        file.write(self.UnirNodo("M","titulo"))
-        file.write(self.UnirNodo("titulo","n"))
-        file.write(self.UnirNodo("titulo","m"))
+        file.write(self.CrearNodo("M","Matrices","oval","\"#ff555d\""))
+        file.write(self.CrearNodo("titulo",str(t),"oval","\"#ff7950\""))
+        file.write(self.CrearNodo("n","n="+str(nn),"circle","\"#ff8b74\""))
+        file.write(self.CrearNodo("m","m="+str(mm),"circle","\"#ff8b74\""))
+        file.write(self.UnirNodo("M","titulo","\"#ff555d\""))
+        file.write(self.UnirNodo("titulo","n","\"#ff7950\""))
+        file.write(self.UnirNodo("titulo","m","\"#ff7950\""))
         for j in range(1,mm+1):
             for i in range(1,nn+1):
                 while p.abajo != None:
                     if p == inicio:
-                        file.write(self.CrearNodo(str(cont),str(p.getDato()),"circle","\"#B3BE30\""))
+                        file.write(self.CrearNodo(str(cont),str(p.getDato()),"circle","\"#ffb892\""))
                         cont = cont + 1
-                        file.write(self.CrearNodo(str(cont),str(p.abajo.getDato()),"circle","\"#B3BE30\""))
-                        file.write(self.UnirNodo(str(cont-1),str(cont))) 
-                        file.write(self.UnirNodo("titulo",str(cont-1))) 
+                        file.write(self.CrearNodo(str(cont),str(p.abajo.getDato()),"circle","\"#ffb892\""))
+                        file.write(self.UnirNodo(str(cont-1),str(cont),"\"#ffb892\"")) 
+                        file.write(self.UnirNodo("titulo",str(cont-1),"\"#ff7950\"")) 
                     else:
                         cont = cont + 1
-                        file.write(self.CrearNodo(str(cont),str(p.abajo.getDato()),"circle","\"#B3BE30\""))
-                        file.write(self.UnirNodo(str(cont-1),str(cont)))
+                        file.write(self.CrearNodo(str(cont),str(p.abajo.getDato()),"circle","\"#ffb892\""))
+                        file.write(self.UnirNodo(str(cont-1),str(cont),"\"#ffb892\""))
                     p = p.abajo
             inicio = q.siguiente
             p = inicio
@@ -119,7 +119,7 @@ class ListaOrtogonal():
         file.write("}")
         file.close()
         os.system("dot -Tpng Reporte.dot -o Grafo.png")
-        print("La grafica se Genero exitosamente")
+        print("***LA GRAFICA HA SIDO GENERADA***")
 
     def Suma(self,patron):
         p = self.inicio
